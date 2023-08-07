@@ -2,15 +2,15 @@
 '''Module for base_model class'''
 from datetime import datetime
 import uuid
-from engine.file_storage import FileStorage
-from __init__ import storage
+from models.__init__ import storage
+
 
 class BaseModel:
     '''Class that defines all common attributes, methods for other classes'''
 
     def __init__(self, *args, **kwargs):
         '''constructor of the class'''
-        if kwargs is not None:
+        if kwargs is not None and len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
                     setattr(self, key, datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f'))
