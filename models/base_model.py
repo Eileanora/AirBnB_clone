@@ -34,7 +34,3 @@ class BaseModel:
         new_dict['updated_at'] = self.updated_at.isoformat()
         return new_dict
 
-    @classmethod
-    def to_instance(dict):
-        '''creates a new instance of the class from a dictionary'''
-        for key, value in dict.items():
