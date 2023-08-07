@@ -3,7 +3,7 @@
 from datetime import datetime
 import uuid
 
-class base_model:
+class BaseModel:
     '''Class that defines all common attributes, methods for other classes'''
 
     def __init__(self, *args, **kwargs):
