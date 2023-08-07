@@ -17,15 +17,16 @@ and deserializes JSON file to instances'''
 
     def new(self, obj):
         '''sets in __objects the obj with key <obj class name>.id'''
+        key = obj.__class__.__name__ + '.' + obj.id
+        FileStorage.__objects[key] = obj
 
-    
     def save(self):
         '''serializes __objects to the JSON file (path: __file_path)'''
         with open(self, __file_path, 'w') as f:
-            json.dump(self.__objects, f)
+            json.dump(FileStorage.__objects, f)
     
     def reload(self):
         '''deserializes the JSON file to __objects if the file exists'''
         if os.path.isfile(self, __file_path):
             with open(self, __file_path, 'r') as f:
-                self.__objects = json.load(f)
+                FileStorage.__objects = json.load(f)
