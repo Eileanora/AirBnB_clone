@@ -7,6 +7,7 @@ entry point of the command interpreter:
     
 import cmd
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -35,7 +36,7 @@ class HBNBCommand(cmd.Cmd):
             if line in self.class_names:
                 class_inst = eval(line)()
                 print(class_inst.id)
-                #save
+                class_inst.save()
             else:
                 print("** class doesn't exist **")
         else:
@@ -48,7 +49,8 @@ class HBNBCommand(cmd.Cmd):
             if line_args[0] in self.class_names:
                 try:
                     if line_args[1]:
-                        #do smething
+                        if line_args[1] in all().keys():
+                            dic = all()
                         pass
                 except IndexError:
                     print ("** instance id missing **")
