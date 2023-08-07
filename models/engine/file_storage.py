@@ -8,7 +8,7 @@ import os.path
 class FileStorage:
     '''Class that serializes instances to a JSON file \
 and deserializes JSON file to instances'''
-    __file_path = 'file.json'
+    __file_path = 'database/data.json'
     __objects = {}
 
     def all(self):
