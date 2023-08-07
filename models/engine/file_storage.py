@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 '''Module for file storage class'''
 import json
-from models.base_model import BaseModel
 import os.path
 
 
 class FileStorage:
     '''Class that serializes instances to a JSON file \
 and deserializes JSON file to instances'''
-    __file_path = 'database/data.json'
+    __file_path = 'models/engine/database/data.json'
     __objects = {}
 
     def all(self):
@@ -22,11 +21,11 @@ and deserializes JSON file to instances'''
 
     def save(self):
         '''serializes __objects to the JSON file (path: __file_path)'''
-        with open(self, __file_path, 'w') as f:
+        with open(FileStorage.__file_path, 'w') as f:
             json.dump(FileStorage.__objects, f)
     
     def reload(self):
         '''deserializes the JSON file to __objects if the file exists'''
-        if os.path.isfile(self, __file_path):
-            with open(self, __file_path, 'r') as f:
+        if os.path.isfile(FileStorage.__file_path):
+            with open(FileStorage.__file_path, 'r', encoding="utf-8") as f:
                 FileStorage.__objects = json.load(f)
