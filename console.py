@@ -6,6 +6,7 @@ entry point of the command interpreter:
     
     
 import cmd
+import ast
 from models.base_model import BaseModel
 from models import storage
 from datetime import datetime
@@ -119,7 +120,8 @@ class HBNBCommand(cmd.Cmd):
                                     if line_args[2]:
                                         try:
                                             if line_args[3]:
-                                                setattr(storage.all()[name], line_args[2], line_args[3])
+                                                val = ast.literal_eval(line_args[3])
+                                                setattr(storage.all()[name], line_args[2], val)
                                                 setattr(storage.all()[name], 'updated_at', datetime.now())
                                                 storage.save()
                                         except ImportError:
