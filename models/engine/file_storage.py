@@ -8,7 +8,7 @@ from models.base_model import BaseModel
 class FileStorage:
     '''Class that serializes instances to a JSON file \
 and deserializes JSON file to instances'''
-    __file_path = 'models/engine/database/data.json'
+    __file_path = 'data.json'
     __objects = {}
 
     def all(self):
@@ -32,6 +32,6 @@ and deserializes JSON file to instances'''
     
     def reload(self):
         '''deserializes the JSON file to __objects if the file exists'''
-        if os.path.isfile(FileStorage.__file_path):
+        if os.path.isfile(FileStorage.__file_path) and os.path.getsize(FileStorage.__file_path) > 0:
             with open(FileStorage.__file_path, 'r', encoding="utf-8") as f:
                 FileStorage.__objects = json.load(f)
