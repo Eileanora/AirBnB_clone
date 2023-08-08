@@ -34,4 +34,6 @@ and deserializes JSON file to instances'''
         '''deserializes the JSON file to __objects if the file exists'''
         if os.path.isfile(FileStorage.__file_path) and os.path.getsize(FileStorage.__file_path) > 0:
             with open(FileStorage.__file_path, 'r', encoding="utf-8") as f:
-                FileStorage.__objects = json.load(f)
+                data = json.load(f)
+                for k, v in data.items():
+                    FileStorage.__objects[k] = eval(v['__class__'])(**v)
