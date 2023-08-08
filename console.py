@@ -3,13 +3,18 @@
 """
 entry point of the command interpreter:
 """
-    
-    
+       
 import cmd
 import ast
 from models.base_model import BaseModel
 from models import storage
 from datetime import datetime
+from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
 
 
 class HBNBCommand(cmd.Cmd):
@@ -18,7 +23,7 @@ class HBNBCommand(cmd.Cmd):
     """
     
     prompt = "(hbnb)"
-    class_names = ["BaseModel"]
+    class_names = ["BaseModel", "User", "State", "Review", "Place", "City", "Amenity"]
     
     def do_EOF(self, line):
         """CTR+D"""
@@ -120,8 +125,7 @@ class HBNBCommand(cmd.Cmd):
                                     if line_args[2]:
                                         try:
                                             if line_args[3]:
-                                                val = ast.literal_eval(line_args[3])
-                                                setattr(storage.all()[name], line_args[2], val)
+                                                setattr(storage.all()[name], line_args[2], line_args[3])
                                                 setattr(storage.all()[name], 'updated_at', datetime.now())
                                                 storage.save()
                                         except ImportError:
@@ -134,9 +138,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             print("** class name missing **")
-        
-            
-
+                    
     
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
