@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 '''Module for file storage class'''
 import json
 import os.path
 from models.base_model import BaseModel
-
+from models.user import User
 
 class FileStorage:
     '''Class that serializes instances to a JSON file \
