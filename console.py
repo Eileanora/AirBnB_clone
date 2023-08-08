@@ -8,6 +8,7 @@ entry point of the command interpreter:
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from datetime import datetime
 
 
 class HBNBCommand(cmd.Cmd):
@@ -43,7 +44,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             
     def do_show(self, line):
-        """Prints the string representation of an instance based on the class name and id"""
+        """Prints the string representation 
+        of an instance based on the class name and id"""
         if line:
             line_args = line.split()
             if line_args[0] in self.class_names:
@@ -62,6 +64,76 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             print("** class name missing **")
+            
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and id"""
+        if line:
+            line_args = line.split()
+            if line_args[0] in self.class_names:
+                try:
+                    if line_args[1]:
+                        k = line_args[0] + "." + line_args[1]
+                        if k in storage.all().keys():
+                            del storage.all()[k]
+                            storage.save()
+                        else:
+                            print("** no instance found **")
+                    else:
+                        print("** instance id missing **")
+                except IndexError:
+                    print ("** instance id missing **")
+            else:
+                print("** class doesn't exist **")
+        else:
+            print("** class name missing **")
+            
+    def do_all(self, line):
+        """Prints all string representation of 
+        all instances based or not on the class name."""
+        all_list = []
+        if line:
+            if line in self.class_names:
+                for k, val in storage.all().items():
+                    if line in k:
+                        all_list.append(str(val))
+                print(all_list)
+            else:
+                print ("** class doesn't exist **")
+        else:
+            for val in storage.all().values():
+                all_list.append(str(val))
+            print(all_list)
+            
+    def do_update(self, line):
+        """Updates an instance based on the class name 
+        and id by adding or updating attribute"""
+        if line:
+            line_args = line.split()
+            if line_args[0] in self.class_names:
+                try:
+                    if line_args[1]:
+                        name = line_args[0] + "." + line_args[1]
+                        for k, v in storage.all().items():
+                            if name == k:
+                                try:
+                                    if line_args[2]:
+                                        try:
+                                            if line_args[3]:
+                                                setattr(storage.all()[name], line_args[2], line_args[3])
+                                                setattr(storage.all()[name], 'updated_at', datetime.now())
+                                                storage.save()
+                                        except ImportError:
+                                            print("** value missing **")          
+                                except IndexError:
+                                    print("** attribute name missing **")
+                except IndexError:
+                    print ("** instance id missing **")
+            else:
+                print("** class doesn't exist **")
+        else:
+            print("** class name missing **")
+        
+            
 
     
 if __name__ == '__main__':
