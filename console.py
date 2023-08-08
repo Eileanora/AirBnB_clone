@@ -7,7 +7,7 @@ entry point of the command interpreter:
     
 import cmd
 from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -49,9 +49,13 @@ class HBNBCommand(cmd.Cmd):
             if line_args[0] in self.class_names:
                 try:
                     if line_args[1]:
-                        if line_args[1] in all().keys():
-                            dic = all()
-                        pass
+                        k = line_args[0] + "." + line_args[1]
+                        if k in storage.all().keys():
+                            print(storage.all()[k])
+                        else:
+                            print("** no instance found **")
+                    else:
+                        print("** instance id missing **")
                 except IndexError:
                     print ("** instance id missing **")
             else:
