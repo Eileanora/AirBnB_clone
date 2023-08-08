@@ -2,6 +2,7 @@
 '''Module for file storage class'''
 import json
 import os.path
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -21,8 +22,13 @@ and deserializes JSON file to instances'''
 
     def save(self):
         '''serializes __objects to the JSON file (path: __file_path)'''
-        with open(FileStorage.__file_path, 'w') as f:
-            json.dump(FileStorage.__objects, f)
+        dic_obj = {}
+        
+        for k, v in FileStorage.__objects.items():
+            dic_obj[k] = v.to_dict()
+        
+        with open(FileStorage.__file_path, mode= "w", encoding="utf-8") as f:
+            json.dump(dic_obj, f)
     
     def reload(self):
         '''deserializes the JSON file to __objects if the file exists'''
