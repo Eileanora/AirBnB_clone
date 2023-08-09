@@ -6,6 +6,7 @@ entry point of the command interpreter:
        
 import cmd
 import ast
+import re
 from models.base_model import BaseModel
 from models import storage
 from datetime import datetime
@@ -107,10 +108,8 @@ of an instance based on the class name and id"""
             for val in storage.all().values():
                 all_list.append(str(val))
             print(all_list)
-
-
-
-
+            
+    
     def do_update(self, line):
         """Updates an instance based on the class name 
 and id by adding or updating attribute"""
@@ -135,6 +134,33 @@ and id by adding or updating attribute"""
                     setattr(storage.all()[key], line_args[2], val)
                     setattr(storage.all()[key], 'updated_at', datetime.now())
                     storage.save()
+                    
+    def parse(self, line):
+        """parsing line to <method_name> <class_name>"""
+        arg_list = []
+        match = re.match(r'^(\w+)\.(\w+)\(\)$', line)
+        if match:
+            class_name = match.group(1)
+            method_name = match.group(2)
+            arg_list.append(method_name)
+            arg_list.append(class_name)
+            return arg_list
+            #print(class_name)
+            #print(method_name)
+        
+            
+    def default(self, line):
+        """dealing with unkown command"""
+        arg_list = self.parse(line)
+        if arg_list: 
+            try:
+                method_name = "do_" + arg_list[0]
+                method = getattr(self, method_name)
+                method(arg_list[1])
+            except SyntaxError:
+                print(f"*** Unknown syntax: {line}")
+        else:
+            print(f"*** Unknown syntax: {line}")
 
 
 if __name__ == '__main__':
