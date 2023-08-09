@@ -72,7 +72,7 @@ of an instance based on the class name and id"""
             elif len(line_args) < 2:
                 print("** instance id missing **")
             else:
-                key = line_args[0] + "." + line_args[1]
+                key = line_args[0] + "." + line_args[1].replace('"', '')
                 if key not in storage.all().keys():
                     print("** no instance found **")
                 else:
@@ -93,7 +93,7 @@ of an instance based on the class name and id"""
             elif len(line_args) < 2:
                 print("** instance id missing **")
             else:
-                key = line_args[0] + "." + line_args[1]
+                key = line_args[0] + "." + line_args[1].replace('"', '')
                 if key not in storage.all().keys():
                     print("** no instance found **")
                 else:
@@ -135,7 +135,7 @@ and id by adding or updating attribute"""
             elif len(line_args) < 4:
                 print("** value missing **")
             else:
-                key = line_args[0] + "." + line_args[1]
+                key = line_args[0] + "." + line_args[1].replace('"', '')
                 if key not in storage.all().keys():
                     print("** no instance found **")
                 else:
@@ -147,12 +147,18 @@ and id by adding or updating attribute"""
     def parse(self, line):
         """parsing line to <method_name> <class_name>"""
         arg_list = []
-        match = re.match(r'^(\w+)\.(\w+)\(\)$', line)
+        match = re.match(r'^(\w+)\.(\w+)\((.*?)\)?$', line)
         if match:
             class_name = match.group(1)
             method_name = match.group(2)
             arg_list.append(method_name)
             arg_list.append(class_name)
+            try:
+                arguments = match.group(3)
+                if arguments != '':
+                     arg_list.append(arguments)
+            except IndexError:
+                pass
             return arg_list
             #print(class_name)
             #print(method_name)
@@ -165,7 +171,14 @@ and id by adding or updating attribute"""
             try:
                 method_name = "do_" + arg_list[0]
                 method = getattr(self, method_name)
-                method(arg_list[1])
+                if len(arg_list) == 2:
+                    method(arg_list[1])
+                elif len(arg_list) == 3:
+                    if "," in arg_list[2]:
+                        arg = arg_list[1] + " " + arg_list[2].replace(',', '')
+                    else:
+                        arg = arg_list[1] + " " + arg_list[2]
+                    method(arg)
             except SyntaxError:
                 print(f"*** Unknown syntax: {line}")
         else:
