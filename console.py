@@ -36,7 +36,16 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """shouldn't execute anything"""
         pass
-    
+
+    def do_count(self, line):
+        '''count number of instances of a class'''
+        count = 0
+        if line in self.class_names:
+            for key in storage.all().keys():
+                if line in key:
+                    count += 1
+        print(count)
+
     def do_create(self, line):
         """Creates a new instance"""
         if line is None or line == "":
