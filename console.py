@@ -174,7 +174,11 @@ and id by adding or updating attribute"""
                 if len(arg_list) == 2:
                     method(arg_list[1])
                 elif len(arg_list) == 3:
-                    if "," in arg_list[2]:
+                    
+                    if "{" in arg_list[2]:
+                        second_arg = arg_list[2].replace(',', '').replace(':', '').replace('{', '').replace('}', '')
+                        arg = arg_list[1] + " " + second_arg
+                    elif "," in arg_list[2]:
                         arg = arg_list[1] + " " + arg_list[2].replace(',', '')
                     else:
                         arg = arg_list[1] + " " + arg_list[2]
