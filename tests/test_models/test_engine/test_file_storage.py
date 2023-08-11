@@ -53,7 +53,23 @@ class TestFileStorage_methods(unittest.TestCase):
     def setUp(self):
         '''Set up method'''
         self.storage = FileStorage()
-
+    
+    def test_all(self):
+        '''Test for all method'''
+        self.assertEqual(dict, type(self.storage.all()))
+    
+    def test_new(self):
+        '''Test for new method'''
+        self.storage.new(BaseModel())
+        self.assertEqual(dict, type(self.storage.all()))
+    
+    def test_save(self):
+        '''Test for save method'''
+        pass
+    
+    def test_reload(self):
+        '''Test for reload method'''
+        pass
 
 if __name__ == '__main__':
     unittest.main()

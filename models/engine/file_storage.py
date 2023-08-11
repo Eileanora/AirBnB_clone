@@ -10,6 +10,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 
+
 class FileStorage:
     '''Class that serializes instances to a JSON file \
 and deserializes JSON file to instances'''
@@ -28,17 +29,18 @@ and deserializes JSON file to instances'''
     def save(self):
         '''serializes __objects to the JSON file (path: __file_path)'''
         dic_obj = {}
-        
+
         for k, v in FileStorage.__objects.items():
             dic_obj[k] = v.to_dict()
-        
-        with open(FileStorage.__file_path, mode= "w", encoding="utf-8") as f:
+
+        with open(FileStorage.__file_path, mode="w", encoding="utf-8") as f:
             json.dump(dic_obj, f)
-    
+
     def reload(self):
         '''deserializes the JSON file to __objects if the file exists'''
-        if os.path.isfile(FileStorage.__file_path) and os.path.getsize(FileStorage.__file_path) > 0:
-            with open(FileStorage.__file_path, 'r', encoding="utf-8") as f:
-                data = json.load(f)
-                for k, v in data.items():
-                    FileStorage.__objects[k] = eval(v['__class__'])(**v)
+        if os.path.isfile(FileStorage.__file_path):
+            if os.path.getsize(FileStorage.__file_path) > 0:
+                with open(FileStorage.__file_path, 'r', encoding="utf-8") as f:
+                    data = json.load(f)
+                    for k, v in data.items():
+                        FileStorage.__objects[k] = eval(v['__class__'])(**v)
