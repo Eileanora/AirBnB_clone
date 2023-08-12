@@ -12,15 +12,20 @@ class TestCity(TestBase):
         super().setUp()
         self.cls = City
 
-    def test_class_attributes(self):
+    def test_class_attributes_exist(self):
         '''Test for class attributes'''
-        c = City()
-        self.assertTrue(hasattr(c, 'state_id'))
-        self.assertTrue(type(c.state_id) is str)
-        self.assertTrue(hasattr(c, 'name'))
-        self.assertTrue(type(c.name) is str)
-        self.assertEqual(c.state_id, '')
-        self.assertEqual(c.name, '')
+        self.assertTrue(hasattr(City, 'state_id'))
+        self.assertTrue(hasattr(City, 'name'))
+
+    def test_class_attributes_type(self):
+        '''Test for class attributes'''
+        self.assertTrue(type(City.state_id) is str)
+        self.assertTrue(type(City.name) is str)
+
+    def test_class_attributes_default(self):
+        '''Test for class attributes'''
+        self.assertEqual(City.state_id, '')
+        self.assertEqual(City.name, '')
 
 
 if __name__ == '__main__':

@@ -74,7 +74,7 @@ class TestBase(unittest.TestCase):
         '''Test for save method'''
         b = BaseModel()
         first_updated_at = b.updated_at
-        sleep(0.1)
+        sleep(1)
         b.save()
         second_updated_at = b.updated_at
         self.assertTrue(first_updated_at != second_updated_at)
