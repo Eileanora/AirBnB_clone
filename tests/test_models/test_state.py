@@ -12,11 +12,17 @@ class TestState(TestBase):
         super().setUp()
         self.cls = State
 
-    def test_class_attributes(self):
+    def test_class_attributes_exist(self):
         '''Test for class attributes'''
-        s = State()
-        self.assertTrue(hasattr(s, 'name'))
-        self.assertTrue(type(s.name) is str)
+        self.assertTrue(hasattr(State, 'name'))
+
+    def test_class_attributes_type(self):
+        '''Test for class attributes'''
+        self.assertTrue(type(State.name) is str)
+
+    def test_class_attributes_default(self):
+        '''Test for class attributes'''
+        self.assertEqual(State.name, '')
 
 
 if __name__ == '__main__':

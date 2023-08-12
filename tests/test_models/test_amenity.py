@@ -12,11 +12,17 @@ class TestAmenity(TestBase):
         super().setUp()
         self.cls = Amenity
 
-    def test_class_attributes(self):
-        '''Test for class attributes'''
-        a = Amenity()
-        self.assertTrue(hasattr(a, 'name'))
-        self.assertTrue(type(a.name) is str)
+    def test_class_attributes_exist(self):
+        '''Test for class attributes exist'''
+        self.assertTrue(hasattr(Amenity, 'name'))
+
+    def test_class_attributes_type(self):
+        '''Test for class attributes type'''
+        self.assertTrue(type(Amenity.name) is str)
+
+    def test_class_attributes_default(self):
+        '''Test for class attributes default'''
+        self.assertEqual(Amenity.name, '')
 
 
 if __name__ == '__main__':
