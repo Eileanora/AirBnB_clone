@@ -19,6 +19,8 @@ class TestCity(TestBase):
         self.assertTrue(type(c.state_id) is str)
         self.assertTrue(hasattr(c, 'name'))
         self.assertTrue(type(c.name) is str)
+        self.assertEqual(c.state_id, '')
+        self.assertEqual(c.name, '')
 
 
 if __name__ == '__main__':

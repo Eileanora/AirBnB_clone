@@ -17,6 +17,7 @@ class TestAmenity(TestBase):
         a = Amenity()
         self.assertTrue(hasattr(a, 'name'))
         self.assertTrue(type(a.name) is str)
+        self.assertEqual(a.name, '')
 
 
 if __name__ == '__main__':

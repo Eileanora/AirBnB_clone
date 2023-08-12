@@ -21,6 +21,9 @@ class TestReview(TestBase):
         self.assertTrue(type(r.place_id) is str)
         self.assertTrue(type(r.user_id) is str)
         self.assertTrue(type(r.text) is str)
+        self.assertEqual(r.place_id, '')
+        self.assertEqual(r.user_id, '')
+        self.assertEqual(r.text, '')
 
 
 if __name__ == '__main__':

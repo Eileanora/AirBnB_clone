@@ -17,6 +17,7 @@ class TestState(TestBase):
         s = State()
         self.assertTrue(hasattr(s, 'name'))
         self.assertTrue(type(s.name) is str)
+        self.assertEqual(s.name, '')
 
 
 if __name__ == '__main__':
