@@ -13,7 +13,9 @@ class BaseModel:
         if kwargs is not None and len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
-                    setattr(self, key, datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f'))
+                    setattr(self,
+                            key,
+                            datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f'))
                 elif key != '__class__':
                     setattr(self, key, value)
         else:
@@ -24,14 +26,19 @@ class BaseModel:
 
     def __str__(self):
         '''String representation of the object'''
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(
+            self.__class__.__name__,
+            self.id,
+            self.__dict__
+            )
 
     def save(self):
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        '''returns a dictionary containing all keys/values of __dict__ of the instance'''
+        '''returns a dictionary containing all keys/values \
+of __dict__ of the instance'''
         new_dict = self.__dict__.copy()
         new_dict['__class__'] = self.__class__.__name__
         new_dict['created_at'] = self.created_at.isoformat()
