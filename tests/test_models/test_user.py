@@ -19,6 +19,11 @@ class TestUser(TestBase):
         self.assertTrue(hasattr(u, 'password'))
         self.assertTrue(hasattr(u, 'first_name'))
         self.assertTrue(hasattr(u, 'last_name'))
+        self.assertEqual(u.email, '')
+        self.assertEqual(u.password, '')
+        self.assertEqual(u.first_name, '')
+        self.assertEqual(u.last_name, '')
+
 
 
 if __name__ == '__main__':
