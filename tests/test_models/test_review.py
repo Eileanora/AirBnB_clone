@@ -9,8 +9,8 @@ class TestReview(TestBase):
     '''Tests for the Review class'''
     def setUp(self):
         '''Set up method'''
-        super().setUp()
         self.cls = Review
+        super().setUp()
 
     def test_class_attributes_exist(self):
         '''Test for class attributes'''

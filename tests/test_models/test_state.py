@@ -9,8 +9,8 @@ class TestState(TestBase):
     '''Tests for the State class'''
     def setUp(self):
         '''Set up method'''
-        super().setUp()
         self.cls = State
+        super().setUp()
 
     def test_class_attributes_exist(self):
         '''Test for class attributes'''

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 '''Unittests for the BaseModel class'''
 from models.base_model import BaseModel
-from tests.test_models.test_base import TestBase
+from tests.test_models.base import TestBase
 import unittest
 
 
@@ -10,8 +10,8 @@ class TestBaseModel(TestBase):
 
     def setUp(self):
         '''Set up method'''
-        super().setUp()
         self.cls = BaseModel
+        super().setUp()
 
 
 if __name__ == '__main__':

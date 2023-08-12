@@ -29,11 +29,11 @@ class HBNBCommand(cmd.Cmd):
         ]
 
     def do_EOF(self, line):
-        """CTR+D"""
+        """Exit the program using CTRL + D"""
         return True
 
     def do_quit(self, line):
-        """Quit command to exit the program"""
+        """Exit the program using quit"""
         return True
 
     def emptyline(self):
@@ -41,7 +41,8 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_count(self, line):
-        '''count number of instances of a class'''
+        '''count number of instances of a class
+Usage: count <class_name>'''
         count = 0
         if line in self.class_names:
             for key in storage.all().keys():
@@ -50,7 +51,9 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def do_create(self, line):
-        """Creates a new instance"""
+        """Creates a new instance of any class \
+and prints the id of the new instance
+Usage: create <class_name>"""
         if line is None or line == "":
             print("** class name missing **")
         elif line not in self.class_names:
@@ -62,7 +65,8 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, line):
         """Prints the string representation \
-of an instance based on the class name and id"""
+of an instance based on the class name and id
+Usage: show <class_name> <id>"""
 
         if line is None or line == "":  # if line is empty
             print("** class name missing **")
@@ -80,7 +84,8 @@ of an instance based on the class name and id"""
                     print(storage.all()[key])
 
     def do_destroy(self, line):
-        """Deletes an instance based on the class name and id"""
+        """Deletes an instance based on the class name and id
+Usage: destroy <class_name> <id>"""
         if line is None or line == "":
             print("** class name missing **")
         else:
@@ -99,7 +104,8 @@ of an instance based on the class name and id"""
 
     def do_all(self, line):
         """Prints all string representation of \
-all instances based or not on the class name."""
+all instances based or not on the class name.
+Usage: all <class_name>"""
         all_list = []
         if line:
             if line in self.class_names:
@@ -116,7 +122,8 @@ all instances based or not on the class name."""
 
     def do_update(self, line):
         """Updates an instance based on the class name \
-and id by adding or updating attribute"""
+and id by adding or updating attribute
+Usage: update <class_name> <id> <attribute name> "<attribute value>"""
         if line is None or line == "":
             print("** class name missing **")
         else:

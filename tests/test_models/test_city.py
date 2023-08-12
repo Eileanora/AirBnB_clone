@@ -9,8 +9,8 @@ class TestCity(TestBase):
     '''Tests for the City class'''
     def setUp(self):
         '''Set up method'''
-        super().setUp()
         self.cls = City
+        super().setUp()
 
     def test_class_attributes_exist(self):
         '''Test for class attributes'''

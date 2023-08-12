@@ -9,8 +9,8 @@ class TestAmenity(TestBase):
     '''Tests for the Amenity class'''
     def setUp(self):
         '''Set up method'''
-        super().setUp()
         self.cls = Amenity
+        super().setUp()
 
     def test_class_attributes_exist(self):
         '''Test for class attributes exist'''
