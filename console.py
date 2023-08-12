@@ -169,17 +169,32 @@ and id by adding or updating attribute"""
                     if "{" in arg_list[2]:
                         second_arg = (
                             arg_list[2]
-                            .replace(',', '')
-                            .replace(':', '')
                             .replace('{', '')
                             .replace('}', '')
                         )
-                        arg = arg_list[1] + " " + second_arg
+                        second_arg_list = second_arg.split(",")
+                        class_name_id = arg_list[1] + " " + second_arg_list[0]
+                        for i in range(1, len(second_arg_list)):
+                            name_value = second_arg_list[i].split(": ")
+                            name = (
+                                name_value[0]
+                                .replace('"', '')
+                                .replace("'", '')
+                            )
+                            arg = (
+                                class_name_id +
+                                " " +
+                                name +
+                                " " +
+                                name_value[1]
+                            )
+                            method(arg)
                     elif "," in arg_list[2]:
                         arg = arg_list[1] + " " + arg_list[2].replace(',', '')
+                        method(arg)
                     else:
                         arg = arg_list[1] + " " + arg_list[2]
-                    method(arg)
+                        method(arg)
             except SyntaxError:
                 print(f"*** Unknown syntax: {line}")
         else:
