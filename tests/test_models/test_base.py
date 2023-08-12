@@ -25,7 +25,7 @@ class TestBase(unittest.TestCase):
     def test_unique_attributes(self):
         '''Test for unique id and created_at attributes'''
         b1 = BaseModel()
-        sleep(0.1)
+        sleep(1)
         b2 = BaseModel()
         self.assertTrue(b1.id != b2.id)
         self.assertTrue(b1.created_at != b2.created_at)
